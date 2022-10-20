@@ -7,6 +7,10 @@ public class BumpObject : MonoBehaviour
     private Rigidbody rigid;
     public GravityManager.GravityDirection gravDirection;
     public float bumpForce = 10.0f;
+    public Vector3 ZAxis;
+    public Vector3 YAxis;
+    public Vector3 XAxis;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +22,21 @@ public class BumpObject : MonoBehaviour
         if (gravDirection != GravityManager.GravityDirection.Up)
         {
             rigid.useGravity = false;
+        }
+        switch (gravDirection)
+        {
+            case GravityManager.GravityDirection.Down:
+                rigid.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
+                break;
+            case GravityManager.GravityDirection.Right:
+                rigid.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;
+                break;
+            case GravityManager.GravityDirection.Left:
+                rigid.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;
+                break;
+            case GravityManager.GravityDirection.Up:
+                rigid.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+                break;
         }
 
     }
